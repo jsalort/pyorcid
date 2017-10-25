@@ -8,11 +8,6 @@ from .utils import dictmapper, u, MappingRule as to
 
 from .exceptions import NotFoundException
 
-# setting logger
-import logging
-logger = logging.getLogger("#orcid#")
-logging.basicConfig(filename='orcid-log.log', level=logging.INFO)
-
 
 BASE_HEADERS = {'Accept':'application/orcid+json'}
 
@@ -87,7 +82,6 @@ WORKS_PATH = ['orcid-profile', 'orcid-activities','orcid-works',]
 
 def _parse_publications(l):
     if l is not None:
-        #logger.debug(json.dumps(l, sort_keys=True, indent=4, separators=(',', ': ')))
         return [Publication(d) for d in l]
     return []
 
@@ -112,7 +106,6 @@ class Author(AuthorBase):
     def _load_works(self):
         resp = requests.get(ORCID_PUBLIC_BASE_URL + self.orcid
                             + '/orcid-works', headers = BASE_HEADERS)
-        logger.debug(json.dumps(resp.json(), sort_keys=True, indent=4, separators=(',', ': ')))
         # import pprint
         # pprint.pprint(resp.json())
         self._loaded_works = Works(resp.json())
@@ -132,16 +125,12 @@ Citation = dictmapper('Citation', {
     'citation_type':['work-citation-type']
 })
 
-def write_logs(resp):
-    logger.debug(json.dumps(resp.json(), sort_keys=True, indent=4, separators=(',', ': ')))
-
 def get(orcid_id):
     """
     Get an author based on an ORCID identifier.
     """
     resp = requests.get(ORCID_PUBLIC_BASE_URL + u(orcid_id),
                         headers=BASE_HEADERS)
-    write_logs(resp)
     json_body = resp.json()
     return Author(json_body)
 
@@ -152,7 +141,6 @@ def get(orcid_id):
 #     resp = requests.get(ORCID_PUBLIC_BASE_URL + u(orcid_id),
 #                         headers=BASE_HEADERS)
 #     json_body = resp.json()
-#     write_logs(resp)
 #     return Author(json_body), json_body
 
 def search(query):
