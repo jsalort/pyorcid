@@ -27,9 +27,9 @@ pip install -r requirements.txt
 
 Here's a quick snippet to get info on `John Wilbanks`_. ::
 
-    >>> import orcid
+    >>> import pyorcid
     >>> #retrieve john's profile from his ORCID
-    >>> john = orcid.get('0000-0002-4510-0385')
+    >>> john = pyorcid.get('0000-0002-4510-0385')
     >>> print john.family_name
     wilbanks
 
@@ -57,10 +57,11 @@ Maybe you'd like to read about Mr. Wiener's contributions? ::
 ### Searching
 
 
-If you'd rather search for authors, try ORCID's search functionality ::
+If you'd rather search for authors, try ORCID's search functionality using its
+[API specification](https://members.orcid.org/api/tutorial/search-orcid-registry) :
 
     >>> #do a simple author search for john
-    >>> authors = orcid.search('john wilbanks')
+    >>> authors = orcid.search('family-name:wilbanks+AND+given-names:john')
     >>> print next(authors).family_name
     wilbanks
 
