@@ -88,7 +88,6 @@ PublicationBase = dictmapper('PublicationBase',{
     'publicationyear': [u'publication-date', u'year', u'value']
 })
 
-<<<<<<< HEAD
 class Publication(PublicationBase):
     def __repr__(self):
         return '<%s "%s">' % (type(self).__name__, self.title)
@@ -99,12 +98,10 @@ def _parse_publications(l):
     if l is not None:
         return [Publication(d) for d in l]
     return []
-=======
 ExternalIDBase = dictmapper('ExternalIDBase', {
     'id'    : ['work-external-identifier-id','value'],
     'type'  : ['work-external-identifier-type']
 })
->>>>>>> 3d4fb980db5c21becc1fc5ae8db454e4b0e044ba
 
 CitationBase = dictmapper('CitationBase', {
     'type'  : ['citation-type'],
@@ -120,19 +117,16 @@ class Author(AuthorBase):
     _loaded_works = None
 
     def _load_works(self):
-<<<<<<< HEAD
         resp = requests.get(ORCID_PUBLIC_BASE_URL + self.orcid
                             + '/orcid-works', headers = BASE_HEADERS)
         # import pprint
         # pprint.pprint(resp.json())
         self._loaded_works = Works(resp.json())
-=======
         _url = '{0}{1}/{2}'.format(ORCID_PUBLIC_BASE_URL, self.orcid, 'works')
         _res = requests.get(_url, headers = BASE_HEADERS)
         _json_body = _res.json()
         logger.debug('RESPONSE (WORKS): {0}'.format(json.dumps(_json_body, sort_keys=True, indent=4, separators=(',', ': '))))
         self._loaded_works = Works(_json_body)
->>>>>>> 3d4fb980db5c21becc1fc5ae8db454e4b0e044ba
 
     @property
     def publications(self):
@@ -159,7 +153,6 @@ class Website(WebsiteBase):
         return "<%s %s [%s]>" % (type(self).__name__, self.name, self.url)
 
 
-<<<<<<< HEAD
 def get(orcid_id):
     """
     Get an author based on an ORCID identifier.
@@ -167,7 +160,6 @@ def get(orcid_id):
     resp = requests.get(ORCID_PUBLIC_BASE_URL + u(orcid_id),
                         headers=BASE_HEADERS)
     json_body = resp.json()
-=======
 class Citation(CitationBase):
     def __unicode__(self):
         return self.text
@@ -201,7 +193,6 @@ def get(orcid_id):
     json_body = _res.json()
     logger.debug('RESPONSE (BASE): {0}'.format(json.dumps(json_body, sort_keys=True, indent=4, separators=(',', ': '))))
 
->>>>>>> 3d4fb980db5c21becc1fc5ae8db454e4b0e044ba
     return Author(json_body)
 
 # def get_with_json(orcid_id):
