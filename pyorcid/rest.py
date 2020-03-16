@@ -10,15 +10,11 @@ from .utils import dictmapper, u, MappingRule as to
 
 from .exceptions import NotFoundException
 
-<<<<<<< HEAD
-=======
 #
 # configure logger
 #
 
 _logger_depth = 'INFO'
->>>>>>> 3d4fb980db5c21becc1fc5ae8db454e4b0e044ba
-
 logger = logging.getLogger("#orcid#")
 logger.setLevel(getattr(logging, _logger_depth))
 stdout_sh = logging.StreamHandler(sys.stdout)
